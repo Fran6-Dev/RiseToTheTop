@@ -16,7 +16,8 @@
               <NuxtLink to="/" class="my-2 text-center rounded p-1">Accueil</NuxtLink>
               <NuxtLink to="/AboutUs" class="my-2 text-center rounded p-1">Qui sommes nous ?</NuxtLink>
               <NuxtLink to="/ContactUs" class="my-2 text-center rounded p-1">Nous contacter</NuxtLink>
-              <NuxtLink to="/Login" class="my-2 text-center rounded p-1">Se Connecter/S'inscrire</NuxtLink>
+              <NuxtLink v-if="isConnected == 'authenticated'" to="/Login" class="my-2 text-center rounded p-1" @click="handleLogout">Deconnexion</NuxtLink>
+              <NuxtLink v-else to="/Login" class="my-2 text-center rounded p-1">S'authentifier</NuxtLink>
             </ul>
           </div>
         </nav>
@@ -26,7 +27,9 @@
             <NuxtLink to="/" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Accueil</NuxtLink>
             <NuxtLink to="/AboutUs"class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Qui sommes nous ?</NuxtLink>
             <NuxtLink to="/ContactUs" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Nous contacter</NuxtLink>
-            <NuxtLink to="/Login" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Se Connecter/S'inscrire</NuxtLink>
+            <NuxtLink v-if="isConnected === 'authenticated'" to="/Login" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline" @click="handleLogout">Déconnexion</NuxtLink>
+            <NuxtLink v-else to="/Login" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">S'authentifier</NuxtLink>
+
           </ul>
         </nav>
       </div>
@@ -48,6 +51,19 @@ const isMobileMenuOpen = ref(false);
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
+
+const { status, signOut } = useAuth();
+
+const isConnected = status.value;
+
+async function handleLogout() {
+  await signOut();
+  useRouter().push({
+      name:"Login"
+    })
+} 
+
+console.log(isConnected);
 
 </script>
 

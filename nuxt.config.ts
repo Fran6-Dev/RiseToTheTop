@@ -6,7 +6,15 @@ export default defineNuxtConfig({
 
   runtimeConfig:{
     mongodbURI: process.env.MONGODB_URI,
+    authSecret: process.env.AUTH_SECRET,
   },
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss"]
+  modules: ["@nuxtjs/tailwindcss", "@sidebase/nuxt-auth"],
+
+  auth: {
+    baseURL: process.env.AUTH_ORIGIN,
+    provider: {
+      type: 'authjs'
+    }
+  }
 })
