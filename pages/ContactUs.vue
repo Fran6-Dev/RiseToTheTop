@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen flex items-center justify-center">
   <div class="flex flex-col justify-center items-center my-11">
-    <h2 class="text-2xl my-4 text-orange-600">Contactez-nous</h2>
+    <h2 class="text-2xl my-4">Contactez-nous</h2>
     <p class="mb-4">Besoin d'aide ou besoin de communiquer directement avec nous ?</p>
     <form
       action="#"
@@ -58,7 +58,7 @@
       <div class="my-10">
         <button
           type="submit"
-          class="block w-full rounded-md bg-orange-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          class="block w-full rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >Envoyer</button>
       </div>
     </form>

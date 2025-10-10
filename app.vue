@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <NuxtLayout>
     <MyLayout>
        <NuxtPage />
     </MyLayout>
-  </div>
+  </NuxtLayout>
 </template>
 
 <script>

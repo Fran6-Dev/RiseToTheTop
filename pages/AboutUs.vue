@@ -4,7 +4,7 @@
   <div class="">
     <div class="flex mx-20 my-10 ">
       <div class="flex flex-col justify-center">
-        <h2 class="text-orange-600 text-3xl w-80 mx-auto">Qui sommes nous ?</h2>
+        <h2 class="text-3xl w-80 mx-auto">Qui sommes nous ?</h2>
         <p class="p-4">Bienvenue dans notre startup dédiée à l'augmentation de la visibilité des basketteurs et
           basketteuses ! <br> Nous sommes passionnés de basketball et nous croyons que chaque joueur et joueuse mérite une
           plateforme pour se faire connaître et être reconnu pour ses talents. <br>

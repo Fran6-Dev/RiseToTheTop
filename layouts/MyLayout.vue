@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <div  class="flex justify-between bg-orange-600 text-white py-3">
+      <div  class="flex justify-between bg-black text-white py-3">
         <p class="p-1">RiseToTheTop</p>
         <!-- Version mobile -->
         <button @click="toggleMobileMenu" class="block md:hidden p-1 absolute right-3">
@@ -13,9 +13,9 @@
         <nav v-if="isMobileMenuOpen" class="md:hidden flex flex-col items-center mt-4">
           <div class="absolute right-1 top-14">
             <ul class="flex flex-col bg-gray-200 text-black">
-              <NuxtLink to="/" class="my-2 text-center rounded p-1">Accueil</NuxtLink>
-              <NuxtLink to="/AboutUs" class="my-2 text-center rounded p-1">Qui sommes nous ?</NuxtLink>
-              <NuxtLink to="/ContactUs" class="my-2 text-center rounded p-1">Nous contacter</NuxtLink>
+              <NuxtLink v-if="isConnected == 'authenticated'" to="/" class="my-2 text-center rounded p-1">Accueil</NuxtLink>
+              <NuxtLink v-if="isConnected == 'authenticated'"to="/AboutUs" class="my-2 text-center rounded p-1">Qui sommes nous ?</NuxtLink>
+              <NuxtLink v-if="isConnected == 'authenticated'"to="/ContactUs" class="my-2 text-center rounded p-1">Nous contacter</NuxtLink>
               <NuxtLink v-if="isConnected == 'authenticated'" to="/Login" class="my-2 text-center rounded p-1" @click="handleLogout">Deconnexion</NuxtLink>
               <NuxtLink v-else to="/Login" class="my-2 text-center rounded p-1">S'authentifier</NuxtLink>
             </ul>
@@ -24,9 +24,9 @@
         
         <nav class="hidden md:flex">
           <ul class="flex">
-            <NuxtLink to="/" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Accueil</NuxtLink>
-            <NuxtLink to="/AboutUs"class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Qui sommes nous ?</NuxtLink>
-            <NuxtLink to="/ContactUs" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Nous contacter</NuxtLink>
+            <NuxtLink v-if="isConnected == 'authenticated'" to="/" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Accueil</NuxtLink>
+            <NuxtLink v-if="isConnected == 'authenticated'" to="/AboutUs"class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Qui sommes nous ?</NuxtLink>
+            <NuxtLink v-if="isConnected == 'authenticated'" to="/ContactUs" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Nous contacter</NuxtLink>
             <NuxtLink v-if="isConnected === 'authenticated'" to="/Login" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline" @click="handleLogout">Déconnexion</NuxtLink>
             <NuxtLink v-else to="/Login" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">S'authentifier</NuxtLink>
 
@@ -37,14 +37,16 @@
     
     <slot />
 
-    <footer class="bg-orange-600 text-white text-center py-3">
-      <p>© 2024 Mon Application RiseToTheTop</p>
+    <footer class="bg-black text-white text-center py-3">
+      <p>© <span>{{ year }}</span> Mon Application RiseToTheTop</p>
     </footer>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+
+const year = new Date().getFullYear();
 
 const isMobileMenuOpen = ref(false);
 
@@ -57,10 +59,7 @@ const { status, signOut } = useAuth();
 const isConnected = status.value;
 
 async function handleLogout() {
-  await signOut();
-  useRouter().push({
-      name:"Login"
-    })
+  await signOut({callbackUrl: '/login'});
 } 
 
 console.log(isConnected);
