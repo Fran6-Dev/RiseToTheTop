@@ -14,6 +14,7 @@
           <div class="absolute right-1 top-14">
             <ul class="flex flex-col bg-gray-200 text-black">
               <NuxtLink v-if="isConnected == 'authenticated'" to="/" class="my-2 text-center rounded p-1">Accueil</NuxtLink>
+              <NuxtLink v-if="isConnected == 'authenticated'" to="/MyInfos" class="my-2 text-center rounded p-1">Mes informations</NuxtLink>
               <NuxtLink v-if="isConnected == 'authenticated'"to="/AboutUs" class="my-2 text-center rounded p-1">Qui sommes nous ?</NuxtLink>
               <NuxtLink v-if="isConnected == 'authenticated'"to="/ContactUs" class="my-2 text-center rounded p-1">Nous contacter</NuxtLink>
               <NuxtLink v-if="isConnected == 'authenticated'" to="/Login" class="my-2 text-center rounded p-1" @click="handleLogout">Deconnexion</NuxtLink>
@@ -25,6 +26,7 @@
         <nav class="hidden md:flex">
           <ul class="flex">
             <NuxtLink v-if="isConnected == 'authenticated'" to="/" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Accueil</NuxtLink>
+            <NuxtLink v-if="isConnected == 'authenticated'" to="/MyInfos" class="mx-3 text-center rounded p-1">Mes informations</NuxtLink>
             <NuxtLink v-if="isConnected == 'authenticated'" to="/AboutUs"class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Qui sommes nous ?</NuxtLink>
             <NuxtLink v-if="isConnected == 'authenticated'" to="/ContactUs" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline">Nous contacter</NuxtLink>
             <NuxtLink v-if="isConnected === 'authenticated'" to="/Login" class="mx-3 text-center rounded p-1 cursor-pointer hover:underline" @click="handleLogout">Déconnexion</NuxtLink>
