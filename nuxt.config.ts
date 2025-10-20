@@ -9,7 +9,11 @@ export default defineNuxtConfig({
     authSecret: process.env.AUTH_SECRET,
   },
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@sidebase/nuxt-auth"],
+  modules: [
+    "@nuxtjs/tailwindcss", 
+    "@sidebase/nuxt-auth", 
+    "@pinia/nuxt"
+  ],
 
   auth: {
     baseURL: process.env.AUTH_ORIGIN,

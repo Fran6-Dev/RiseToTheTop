@@ -4,6 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { User } from '~/server/models/User'
 import bcrypt from 'bcrypt'
 import { z } from 'zod'
+// import { useUserStore } from '~/store/user'
+// import { id } from 'zod/locales'
 
 const credentialsSchema = z.object({
   username: z.string().min(1),

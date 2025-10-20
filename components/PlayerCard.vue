@@ -1,79 +1,44 @@
 <template>
-  <div class="grid place-content-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    <div class="mx-auto mb-6">
-      <div class="w-80 p-3 text-center border-2 rounded border-dark shadow-2xl">
-        <p class="text-xl m-2">Baudry Lukoki</p>
-        <img
-          class="w-64 h-72 mx-auto"
-          src="/assets/IMG_1133.jpg"
-          alt="image joueur"
-        >
-        <p>Taille : 186cm </p>
-        <p>Poste de jeu : Meneur de jeu</p>
-        <p>Club actuel : Bismarck State College (USA)</p>
-        <p>Niveau de compétition : JUCO D1</p>
-      </div>
-    </div>
-    <div class="mx-auto mb-6">
-      <div class="w-80 p-3 text-center border-2 rounded border-dark shadow-2xl">
-        <p class="text-xl m-2">Johana Lukoki</p>
-        <img
-          class="w-64 h-72 mx-auto"
-          src="/assets/8a226c46-ec44-4ef7-bba9-05f3626e40dd.jpg"
-          alt="image joueur"
-        >
-        <p>Taille : 186cm </p>
-        <p>Poste de jeu : Meneur de jeu</p>
-        <p>Club actuel : Bismarck State College (USA)</p>
-        <p>Niveau de compétition : JUCO D1</p>
-      </div>
-    </div>
-    <div class="mx-auto mb-6">
-      <div class="w-80 p-3 text-center border-2 rounded border-dark shadow-2xl">
-        <p class="text-xl m-2">Francis Lukoki</p>
-        <img
-          class="w-64 h-72 mx-auto"
-          src="/assets/55e3aefe-314b-4d9b-b993-69fffe81efcc.jpg"
-          alt="image joueur"
-        >
-        <p>Taille : 186cm </p>
-        <p>Poste de jeu : Meneur de jeu</p>
-        <p>Club actuel : Bismarck State College (USA)</p>
-        <p>Niveau de compétition : JUCO D1</p>
-      </div>
-    </div>
-    <div class="mx-auto mb-6">
-      <div class="w-80 p-3 text-center border-2 rounded border-dark shadow-2xl">
-        <p class="text-xl m-2">Francis Lukoki</p>
-        <img
-          class="w-64 h-72 mx-auto"
-          src="/assets/55e3aefe-314b-4d9b-b993-69fffe81efcc.jpg"
-          alt="image joueur"
-        >
-        <p>Taille : 186cm </p>
-        <p>Poste de jeu : Meneur de jeu</p>
-        <p>Club actuel : Bismarck State College (USA)</p>
-        <p>Niveau de compétition : JUCO D1</p>
-      </div>
-    </div>
-    <div class="mx-auto mb-6">
-      <div class="w-80 p-3 text-center border-2 rounded border-dark shadow-2xl">
-        <p class="text-xl m-2">Francis Lukoki</p>
-        <img
-          class="w-64 h-72 mx-auto"
-          src="/assets/55e3aefe-314b-4d9b-b993-69fffe81efcc.jpg"
-          alt="image joueur"
-        >
-        <p>Taille : 186cm </p>
-        <p>Poste de jeu : Meneur de jeu</p>
-        <p>Club actuel : Bismarck State College (USA)</p>
-        <p>Niveau de compétition : JUCO D1</p>
-      </div>
+  <div>
+  <h2>Liste des joueurs</h2>
+  <div v-if="pending">Chargement...</div>
+  <div v-else-if="error">Erreur : {{ error.message }}</div>
+
+  <div v-else class="grid grid-cols gap-4">
+    <div v-for="user in users" :key="user.id" class="p-4 border rounded">
+        <img :src="user.photo" alt="photo joueur" class="w-32 h-32 object-cover " />
+        <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+        <p>{{ user.team }} - {{ user.level }}</p>
+        <p>{{ user.role }}</p>
     </div>
   </div>
+</div>
 </template>
 
 <script lang="ts" setup>
+
+export interface User {
+  id: string
+  email: string
+  username: string
+  firstName?: string
+  lastName?: string
+  birth?: string
+  nationality?: string
+  height?: number
+  role?: string
+  team?: string
+  level?: string
+  disponibility?: string
+  photo?: string
+  video?: string
+  description?: string
+  visible: boolean
+  isDeleted: boolean
+}
+
+
+const { data: users, pending, error } = await useFetch<User[]>('/api/user/users')
 
 </script>
 
