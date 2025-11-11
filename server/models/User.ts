@@ -81,7 +81,7 @@ const userSchema = new Schema(
     timestamps: true,
     // nettoie _id, __v et password.
     toJSON: {
-      transform(_doc, ret) {
+      transform(_doc: any, ret: Record<string, any>) {
         ret.id = ret._id
         delete ret._id
         delete ret.__v
@@ -93,8 +93,8 @@ const userSchema = new Schema(
 )
 
 // Indexes utiles
-userSchema.index({ email: 1 })
-userSchema.index({ username: 1 })
+// userSchema.index({ email: 1 })
+// userSchema.index({ username: 1 })
 
 // Types TS inférés
 export type User = InferSchemaType<typeof userSchema>

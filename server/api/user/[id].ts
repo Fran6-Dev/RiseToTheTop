@@ -1,6 +1,6 @@
 import { connectDB } from "~/server/utils/mongo";
 import { User } from '~/server/models/User';
-import { defineEventHandler, getQuery } from "#build/types/nitro-imports";
+// import { defineEventHandler, getQuery } from "#build/types/nitro-imports";
 import { isValidObjectId } from "mongoose";
 
 export default defineEventHandler(async(event) => {
