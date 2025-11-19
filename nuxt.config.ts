@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   runtimeConfig:{
     mongodbURI: process.env.MONGODB_URI,
     authSecret: process.env.AUTH_SECRET,
+    cfAccountId: process.env.CF_ACCOUNT_ID,
+    r2AccessKeyId: process.env.R2_ACCESS_KEY_ID,
+    r2SecretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+    r2Bucket: process.env.R2_BUCKET,
+    // r2PublicBase : process.env.R2_PUBLIC_BASE || null,
   },
   devtools: { enabled: true },
   modules: [

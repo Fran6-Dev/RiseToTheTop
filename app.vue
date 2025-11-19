@@ -22,5 +22,4 @@ onMounted(() => {
       <NuxtPage/>
     </NuxtLayout>
   </MyLayout>
-
 </template>

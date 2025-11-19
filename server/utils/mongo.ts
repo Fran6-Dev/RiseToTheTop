@@ -1,7 +1,15 @@
+// server/utils/mongo.ts
 import mongoose from 'mongoose'
 
+type Cached = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null }
+const g = globalThis as unknown as { _mongoose?: Cached }
+if (!g._mongoose) g._mongoose = { conn: null, promise: null }
+
 export async function connectDB() {
-  if (mongoose.connection.readyState === 1) return
-  await mongoose.connect(process.env.MONGODB_URI as string)
-  console.log('✅ MongoDB connected')
+  const { mongodbURI } = useRuntimeConfig()
+  if (!mongodbURI) throw new Error('runtimeConfig.mongodbURI manquant')
+  if (g._mongoose!.conn) return g._mongoose!.conn
+  if (!g._mongoose!.promise) g._mongoose!.promise = mongoose.connect(mongodbURI)
+  g._mongoose!.conn = await g._mongoose!.promise
+  return g._mongoose!.conn
 }

@@ -67,6 +67,9 @@
 
       <!-- Médias -->
       <section>
+
+        <FileUploader />
+
         <h3 class="text-lg font-semibold mb-2">Médias</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -112,25 +115,26 @@
 <script lang="ts" setup>
 
 import { useUserStore } from '~/stores/user'
-import { User } from '~/server/models/User';
+// import { User } from '~/server/models/User';
+import FileUploader from '~/components/FileUploader.vue';
 
 definePageMeta({
   middleware : ['auth']
 })
 
-const userMe = ref<User | null>(null);
+// const userMe = ref<User | null>(null);
 
-async function getPlayerInfo(){
-  try{
-const user = await $fetch<User>('/api/user/me');
-userMe.value = user;
-  }
-  catch(e){
-    console.log(e)
+// async function getPlayerInfo(){
+//   try{
+// const user = await $fetch<User>('/api/user/me');
+// userMe.value = user;
+//   }
+//   catch(e){
+//     console.log(e)
 
-  }
-}
-getPlayerInfo()
+//   }
+// }
+// getPlayerInfo()
 
 interface PlayerForm {
   firstName: string
@@ -253,6 +257,8 @@ const handleSubmit = async () => {
   } finally {
     loading.value = false
   }
+
+  
 }
 
 </script>
