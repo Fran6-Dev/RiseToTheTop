@@ -8,6 +8,7 @@ declare module 'next-auth' {
       username?: string | null
       role?: string | null
       level?: string | null
+      accountRole?: string | null
       visible?: boolean
     } & DefaultSession['user']
   }
@@ -18,6 +19,7 @@ declare module 'next-auth' {
     username?: string | null
     role?: string | null
     level?: string | null
+    accountRole?: string | null
     visible?: boolean
   }
 }
@@ -29,6 +31,7 @@ declare module 'next-auth/jwt' {
     role?: string | null
     level?: string | null
     visible?: boolean
+    accountRole?: string | null
     email?: string | null
   }
 }

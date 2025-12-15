@@ -17,6 +17,7 @@ export default defineEventHandler( async (event) => {
       username: String(username).trim(),
       password: hashed,
       // on fige les flags pour éviter tout override client
+      accountRole: 'user',
       visible: true,
       isDeleted: false,
     })

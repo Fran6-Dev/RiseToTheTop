@@ -28,6 +28,7 @@ export default defineEventHandler(async(event) => {
         role: body.role,
         team: body.team,
         level: body.level,
+        acountRole: body.accountRole,
         disponibility: body.disponibility,
         photo: body.photo,
         video: body.video,

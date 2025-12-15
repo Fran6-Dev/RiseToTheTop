@@ -52,6 +52,7 @@ export default NuxtAuthHandler({
           username: user.username,
           role: user.role ?? null,
           level: user.level ?? null,
+          accountRole: user.accountRole ?? 'user',
           visible: user.visible ?? true,
         }
       },
@@ -69,6 +70,7 @@ export default NuxtAuthHandler({
         token.email = (user as any).email
         token.role = (user as any).role
         token.level = (user as any).level
+        token.accountRole = (user as any).accountRole
         token.visible = (user as any).visible
       }
       return token
@@ -83,6 +85,7 @@ export default NuxtAuthHandler({
         username: (token.username as string) ?? null,
         role: (token.role as string) ?? null,
         level: (token.level as string) ?? null,
+        accountRole: (token.accountRole as string) ?? null,
         visible: (token.visible as boolean) ?? true,
       } as any
 

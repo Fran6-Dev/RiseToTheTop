@@ -15,12 +15,22 @@ function onFileChange(e: Event) {
   errorMsg.value = null
   progress.value = 0
 
-  if (f && f.type.startsWith('image/')) {
+  if (f && (f.type.startsWith('image/') || f.type.startsWith('video/'))) {
     previewUrl.value = URL.createObjectURL(f)
   } else {
     previewUrl.value = null
   }
+
+  const MAX_SIZE = 50 * 1024 * 1024 // 50 Mo
+  if (f && f.size > MAX_SIZE) {
+    errorMsg.value = 'La vidéo est trop lourde (max 50 Mo).'
+    file.value = null
+    return
+  }
+
 }
+
+
 
 async function upload() {
   if (!file.value) {
@@ -62,7 +72,11 @@ async function upload() {
 
     // 3) Sauvegarde la "key" dans ta BDD côté serveur (ex: avatarKey)
     // Adapte l’URL/route à ton projet
-    await $fetch('/api/user/photo', {
+    const isVideo = file.value.type.startsWith('video/')
+
+    
+
+    await $fetch(isVideo ? '/api/user/video' : '/api/user/photo', {
       method: 'POST',
       body: { key: presign.key, contentType: file.value.type, originalName: file.value.name },
     })
@@ -100,7 +114,7 @@ async function upload() {
       @click="upload"
       class="px-4 py-2 rounded bg-black text-white disabled:opacity-50"
     >
-      {{ uploading ? 'Upload en cours…' : 'Uploader' }}
+      {{ uploading ? 'Upload en cours…' : 'Charger le fichier' }}
     </button>
 
     <div v-if="uploading" class="w-full bg-gray-200 rounded h-2">

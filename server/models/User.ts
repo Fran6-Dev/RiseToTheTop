@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   email: { type: String, required: true, unique: true, trim: true, lowercase: true },
   username: { type: String, required: true, unique: true, trim: true },
   password: { type: String, required: true, minlength: 8, select: false },
+  accountRole: { type: String, trim: true},
   firstName: { type: String, trim: true },
   lastName: { type: String, trim: true },
   birth: { type: Date },
