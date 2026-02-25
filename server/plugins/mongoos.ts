@@ -14,9 +14,9 @@ export default defineNitroPlugin(async (_nitroApp) => {
 
   try {
     await mongoose.connect(uri);
-    // console.log("✅ Connected to MongoDB");
+    console.log("✅ Connected to MongoDB");
   } catch (e) {
-    // console.error("❌ Erreur Mongo:", e);
+    console.error("❌ Erreur Mongo:", e);
     throw e; // important: si Mongo est indispensable, mieux vaut faire échouer le boot
   }
 });
