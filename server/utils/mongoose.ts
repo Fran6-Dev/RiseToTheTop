@@ -14,8 +14,7 @@ export async function connectMongoose() {
   if (global._mongoose!.conn) return global._mongoose!.conn
 
   if (!global._mongoose!.promise) {
-    const config = useRuntimeConfig()
-    const uri = config.mongodbURI || process.env.MONGODB_URI
+    const uri = process.env.MONGODB_URI
 
     if (!uri || !(uri.startsWith("mongodb://") || uri.startsWith("mongodb+srv://"))) {
       throw new Error("Invalid or missing MongoDB URI (mongodbURI / MONGODB_URI)")
