@@ -16,7 +16,7 @@ export default NuxtAuthHandler(async () => {
   await connectMongoose()
 
   return {
-    secret: useRuntimeConfig().authSecret,
+    secret: process.env.AUTH_SECRET,
     pages: {
       signIn: "/login",
     },
