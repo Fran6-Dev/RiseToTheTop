@@ -11,7 +11,7 @@
             </div>
             <div class="flex flex-col leading-tight">
               <span class="text-sm font-semibold">RiseToTheTop</span>
-              <span class="text-[11px] text-slate-400">Basket players platform</span>
+              <span class="text-[11px] text-slate-400">Pour atteindre le sommet</span>
             </div>
           </NuxtLink>
 

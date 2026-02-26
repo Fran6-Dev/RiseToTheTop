@@ -1,5 +1,5 @@
 import { User } from '~/server/models/User'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export default defineEventHandler( async (event) => {
   const { email, username, password } = await readBody(event)
@@ -18,7 +18,7 @@ export default defineEventHandler( async (event) => {
       password: hashed,
       // on fige les flags pour éviter tout override client
       accountRole: 'user',
-      visible: true,
+      visible: false,
       isDeleted: false,
     })
 

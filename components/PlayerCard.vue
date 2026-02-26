@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-slate-100">
-    <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="max-w-6xl mx-auto ">
       <!-- Titre -->
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl md:text-3xl font-semibold text-slate-900">
@@ -13,11 +13,7 @@
 
       <!-- États de chargement / erreur -->
       <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div
-          v-for="n in 6"
-          :key="n"
-          class="bg-white rounded-3xl shadow-sm border border-slate-200 p-4 animate-pulse"
-        >
+        <div v-for="n in 6" :key="n" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-4 animate-pulse">
           <div class="w-full aspect-video bg-slate-200 rounded-2xl mb-4"></div>
           <div class="h-4 bg-slate-200 rounded mb-2 w-3/4"></div>
           <div class="h-3 bg-slate-200 rounded mb-1 w-1/2"></div>
@@ -25,33 +21,42 @@
         </div>
       </div>
 
-      <div
-        v-else-if="error"
-        class="bg-red-50 text-red-700 border border-red-200 rounded-xl p-4"
-      >
+      <div v-else-if="error" class="bg-red-50 text-red-700 border border-red-200 rounded-xl p-4">
         Erreur : {{ error.message }}
       </div>
 
       <!-- Liste des joueurs filtrés -->
-      <div
-        v-else
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        <NuxtLink
-          v-for="user in filteredUsers"
-          :key="user._id"
-          :to="`/player/${user._id}`"
-          class="group bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col"
-        >
+      <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Filtres -->
+        <div class="col-span-full flex flex-col md:flex-row gap-3">
+          <select v-model="selectedRole" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm">
+            <option value="">Tous les postes</option>
+            <option v-for="r in roles" :key="r" :value="r">
+              {{ r }}
+            </option>
+          </select>
+
+          <select v-model="selectedLevel" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm">
+            <option value="">Tous les niveaux</option>
+            <option v-for="l in levels" :key="l" :value="l">
+              {{ l }}
+            </option>
+          </select>
+
+          <!-- (optionnel) bouton reset -->
+          <button type="button" @click="resetFilters" class="bg-slate-900 text-white rounded-xl px-4 py-2 text-sm">
+            Réinitialiser
+          </button>
+        </div>
+
+
+        <NuxtLink v-for="user in filteredUsers" :key="user._id" :to="`/player/${user._id}`"
+          class="group bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col">
           <!-- Image -->
           <div class="w-full h-100 bg-slate-900/90 overflow-hidden">
-            <img
-              v-if="user.photo"
-              :src="urlR2 + user.photo"
-              alt="Photo de {{ user.firstName }} {{ user.lastName }}"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-            />
-            <img v-else src="/assets/icon-person.jpg"/>
+            <img v-if="user.photo" :src="urlR2 + user.photo" alt="Photo de {{ user.firstName }} {{ user.lastName }}"
+              class="photo-player object-cover group-hover:scale-105 transition-transform duration-200" />
+            <img v-else src="/assets/icon-person.jpg" />
             <!-- <div
               v-else
               class="w-full h-full flex items-center justify-center text-xs text-slate-200"
@@ -66,10 +71,8 @@
               <h2 class="text-lg font-semibold text-slate-900 leading-tight">
                 {{ user.firstName }} {{ user.lastName }}
               </h2>
-              <span
-                v-if="user.role"
-                class="inline-flex items-center rounded-full bg-slate-900 text-white text-[10px] font-medium px-2 py-1"
-              >
+              <span v-if="user.role"
+                class="inline-flex items-center rounded-full bg-slate-900 text-white text-[10px] font-medium px-2 py-1">
                 {{ user.role }}
               </span>
             </div>
@@ -94,10 +97,7 @@
         </NuxtLink>
 
         <!-- Cas où le filtre ne trouve personne -->
-        <div
-          v-if="!filteredUsers.length"
-          class="col-span-full text-center text-slate-500 text-sm"
-        >
+        <div v-if="!filteredUsers.length" class="col-span-full text-center text-slate-500 text-sm">
           Aucun joueur visible pour le moment.
         </div>
       </div>
@@ -130,10 +130,54 @@ export interface User {
 
 const { data: users, pending, error } = await useFetch<User[]>('/api/user/users')
 
-// On filtre ici : visible = true et isDeleted = false
-const filteredUsers = computed(
-  () => (users.value || []).filter(u => u.visible && !u.isDeleted)
+/** état des filtres */
+const selectedRole = ref("")
+const selectedLevel = ref("")
+
+/** base: seulement visible + non supprimé */
+const baseUsers = computed(() =>
+  (users.value || []).filter(u => u.visible && !u.isDeleted)
 )
 
-// console.log(filteredUsers.value)
+/** options dynamiques */
+const roles = computed(() => {
+  const set = new Set(
+    baseUsers.value
+      .map(u => u.role?.trim())
+      .filter((v): v is string => !!v)
+  )
+  return Array.from(set).sort()
+})
+
+const levels = computed(() => {
+  const set = new Set(
+    baseUsers.value
+      .map(u => u.level?.trim())
+      .filter((v): v is string => !!v)
+  )
+  return Array.from(set).sort()
+})
+
+/** filtre final */
+const filteredUsers = computed(() => {
+  return baseUsers.value.filter(u => {
+    const matchRole = !selectedRole.value || u.role === selectedRole.value
+    const matchLevel = !selectedLevel.value || u.level === selectedLevel.value
+    return matchRole && matchLevel
+  })
+})
+
+const resetFilters = () => {
+  selectedRole.value = ""
+  selectedLevel.value = ""
+}
 </script>
+
+<style>
+.photo-player {
+  width: 170px;
+  height: 220px;
+  display: block;
+  margin: 0 auto;
+}
+</style>

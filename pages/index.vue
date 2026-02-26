@@ -13,13 +13,16 @@
               <span v-if="username" class="">
                 {{ username }}
               </span>
-              <span v-else class="">
+              <!-- <span v-else class="">
                 joueur
-              </span>
+              </span> -->
               👋
             </h1>
-            <p class="mt-1 text-sm">
+            <p v-if="username" class="mt-1 text-sm">
               Gère ton profil et découvre les autres joueurs de la plateforme.
+            </p>
+            <p v-else class="mt-1 text-sm">
+              Inscris toi, créer ton profil et découvre les autres joueurs de la plateforme.
             </p>
           </div>
 
@@ -53,13 +56,13 @@
       </section>
 
       <!-- Intro (ton composant existant) -->
-      <section class="mb-10">
+      <section v-if="!username" class="mb-10">
         <Intro />
       </section>
 
       <!-- Section joueurs -->
       <section>
-        <div class="flex items-center justify-between mb-4">
+        <!-- <div class="flex items-center justify-between mb-4">
           <div>
             <h2 class="text-lg md:text-xl font-semibold">
               Tous les profils joueur RiseToTheTop
@@ -68,9 +71,9 @@
               Parcours les profils publics des joueurs et consulte leurs fiches détaillées.
             </p>
           </div>
-        </div>
+        </div> -->
 
-        <div class="rounded-3xl p-4 md:p-6">
+        <div class="rounded-3xl">
           <PlayerCard />
         </div>
       </section>
@@ -79,9 +82,9 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  middleware: 'auth'
-})
+// definePageMeta({
+//   middleware: 'guest'
+// })
 
 const { data: session, status } = useAuth()
 
@@ -98,6 +101,3 @@ watchEffect(() => {
 })
 </script>
 
-<style>
-/* Tu peux garder vide, Tailwind fait le taf */
-</style>

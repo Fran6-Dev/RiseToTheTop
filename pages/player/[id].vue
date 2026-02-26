@@ -103,6 +103,18 @@
                   {{ user.height ? user.height + " cm" : "—" }}
                 </p>
               </div>
+              <div class="bg-slate-50 rounded-2xl px-4 py-3">
+                <p class="text-xs text-slate-500 mb-1">Poids</p>
+                <p class="font-semibold text-slate-900">
+                  {{ user.weight ? user.weight + " kg" : "—" }}
+                </p>
+              </div>
+              <div class="bg-slate-50 rounded-2xl px-4 py-3">
+                <p class="text-xs text-slate-500 mb-1">Main Forte</p>
+                <p class="font-semibold text-slate-900">
+                  {{ user.hand || "—" }}
+                </p>
+              </div>
 
               <div class="bg-slate-50 rounded-2xl px-4 py-3">
                 <p class="text-xs text-slate-500 mb-1">Date de naissance</p>
@@ -119,18 +131,25 @@
               </div>
 
               <div class="bg-slate-50 rounded-2xl px-4 py-3">
+                <p class="text-xs text-slate-500 mb-1">Social Media</p>
+                <p class="font-semibold text-slate-900">
+                  {{ user.socialMedia || "—" }}
+                </p>
+              </div>
+
+              <!-- <div class="bg-slate-50 rounded-2xl px-4 py-3">
                 <p class="text-xs text-slate-500 mb-1">Email</p>
                 <p class="font-semibold text-slate-900 break-all">
                   {{ user.email || "—" }}
                 </p>
-              </div>
+              </div> -->
 
-              <div class="bg-slate-50 rounded-2xl px-4 py-3">
+              <!-- <div class="bg-slate-50 rounded-2xl px-4 py-3">
                 <p class="text-xs text-slate-500 mb-1">Pseudo</p>
                 <p class="font-semibold text-slate-900">
                   {{ user.username || "—" }}
                 </p>
-              </div>
+              </div> -->
 
               <div class="bg-slate-50 rounded-2xl px-4 py-3">
                 <p class="text-xs text-slate-500 mb-1">Dernière mise à jour</p>

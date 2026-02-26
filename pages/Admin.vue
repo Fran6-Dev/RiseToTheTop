@@ -178,12 +178,12 @@ definePageMeta({
 const urlR2 = "https://pub-aa0e4ee5d9f04aca8ce8d04a868dd903.r2.dev/";
 
 // Récup users
-const { data: users, pending, error } = await useFetch("/api/user/users");
+const { data: users, refresh, pending, error } = await useFetch("/api/user/userGestion");
 
-// console.log(users.value)
+// console.log("users", users.value)
 
 // Format date
-const formatDate = (dateString) => {
+const formatDate = (dateString: string) => {
   if (!dateString) return "—";
   const d = new Date(dateString);
   return d.toLocaleDateString("fr-FR");
@@ -196,6 +196,7 @@ const toggleVisible = async (user) => {
     method: 'PATCH',
     body: { visible: user.visible }
   })
+  await refresh()
 }
 
 const toggleDeleted = async (user) => {
@@ -205,6 +206,8 @@ const toggleDeleted = async (user) => {
     method: 'PATCH',
     body: { isDeleted: user.isDeleted }
   })
+  await refresh()
+
 }
 
 </script>

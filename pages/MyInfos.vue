@@ -20,6 +20,7 @@
           <FormInput label="Date de naissance" type="date" v-model="form.birth" required />
           <FormInput label="Nationalité" v-model="form.nationality" required />
           <FormInput label="Taille (cm)" type="number" v-model="form.height" required />
+          <FormInput label="Poids (kg)" type="number" v-model="form.weight" required />
         </div>
       </section>
 
@@ -29,6 +30,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormSelect label="Poste" v-model="form.role" :options="roles" required />
+          <FormSelect label="Main Forte" v-model="form.hand" :options="hand" required />
           <FormInput label="Équipe actuelle" v-model="form.team" />
           <FormSelect label="Niveau" v-model="form.level" :options="levels" required />
           <FormInput label="Disponibilité" v-model="form.disponibility" placeholder="Ex : Immédiate, Fin de saison..." />
@@ -43,7 +45,7 @@
         <div class="mb-6">
           <h3 class="font-medium mb-2">Image de profil</h3>
           <FileUploader />
-          <div v-if="form.photo" class="w-full overflow-hidden mt-3">
+          <div v-if="form.photo" class="media-size overflow-hidden mt-3">
             <img :src="urlR2 + form.photo" class="object-cover" />
           </div>
         </div>
@@ -52,7 +54,7 @@
         <div>
           <h3 class="font-medium mb-2">Vidéo Highlight</h3>
           <FileUploader />
-          <div v-if="form.video" class="w-full aspect-video rounded-2xl overflow-hidden bg-black mt-3">
+          <div v-if="form.video" class="media-size aspect-video rounded-2xl overflow-hidden bg-black mt-3">
             <video :src="urlR2 + form.video" controls class="w-full h-full object-cover" />
           </div>
         </div>
@@ -104,7 +106,10 @@ interface PlayerForm {
   birth: string
   nationality: string
   height: number | null
+  weight: number | null
   role: string
+  hand: string
+  socialMedia: string | null
   team: string
   level: string
   disponibility: string
@@ -119,7 +124,10 @@ const form = ref<PlayerForm>({
   birth: "",
   nationality: "",
   height: null,
+  weight: null,
   role: "",
+  hand: "",
+  socialMedia: null,
   team: "",
   level: "",
   disponibility: "",
@@ -130,21 +138,29 @@ const form = ref<PlayerForm>({
 
 const roles = ["Meneur (1)", "Arrière (2)", "Ailier (3)", "Ailier fort (4)", "Pivot (5)"]
 
+const hand = ["Gaucher (G)", "Droitier (D)"]
+
 const levels = [
-  "NBA",
   "EuroLeague",
   "Pro A / Betclic Élite",
   "Pro B",
+  "Ligue féminine (LFB)",
+  "Ligue féminine (LF2)",
   "Nationale 1 (NM1)",
   "Nationale 2 (NM2)",
   "Nationale 3 (NM3)",
-  "Région 1 (RM1 / RF1)",
-  "Région 2 (RM2 / RF2)",
-  "Région 3 (RM3 / RF3)",
-  "Départemental 1",
-  "Départemental 2",
-  "Départemental 3",
-  "Loisir",
+  "Nationale 1 (NF1)",
+  "Nationale 2 (NF2)",
+  "Nationale 3 (NF3)",
+  "Région 1 (RM1)",
+  "Région 2 (RM2)",
+  "Région 3 (RM3)",
+  "Départemental 1 (DF1)",
+  "Départemental 2 (DF2)",
+  "Départemental 3 (DF3)",
+  "Départemental 1 (DM1)",
+  "Départemental 2 (DM2)",
+  "Départemental 3 (DM3)",
   "Autre"
 ]
 
@@ -186,3 +202,9 @@ const handleSubmit = async () => {
   }
 }
 </script>
+
+<style>
+  .media-size {
+    width: 20rem;
+  }
+</style>

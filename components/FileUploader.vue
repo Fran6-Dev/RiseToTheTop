@@ -1,3 +1,33 @@
+<template>
+  <div class="space-y-3">
+    <input
+      type="file"
+      @change="onFileChange"
+      accept="image/*,video/*"
+      class="block w-full"
+    />
+
+    <div v-if="previewUrl" class="mt-2">
+      <img v-if="file?.type?.startsWith('image/')" :src="previewUrl" alt="preview" class="max-h-48 rounded" />
+      <video v-else-if="file?.type?.startsWith('video/')" :src="previewUrl" controls class="max-h-48 rounded" />
+    </div>
+
+    <button
+      :disabled="!file || uploading"
+      @click="upload"
+      class="px-4 py-2 rounded bg-black text-white disabled:opacity-50"
+    >
+      {{ uploading ? 'Upload en cours…' : 'Charger le fichier' }}
+    </button>
+
+    <div v-if="uploading" class="w-full bg-gray-200 rounded h-2">
+      <div class="h-2 bg-blue-500 rounded" :style="{ width: progress + '%' }"></div>
+    </div>
+
+    <p v-if="errorMsg" class="text-red-600 text-sm">{{ errorMsg }}</p>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -28,9 +58,8 @@ function onFileChange(e: Event) {
     return
   }
 
+
 }
-
-
 
 async function upload() {
   if (!file.value) {
@@ -81,6 +110,8 @@ async function upload() {
       body: { key: presign.key, contentType: file.value.type, originalName: file.value.name },
     })
 
+    await reloadNuxtApp()
+
     // Reset / succès
     progress.value = 100
   } catch (err: any) {
@@ -90,37 +121,11 @@ async function upload() {
     uploading.value = false
   }
 
-
   
+}
+
+async function chargePage() {
+  navigateTo('/MyInfos', { replace: true })
 }
 </script>
 
-<template>
-  <div class="space-y-3">
-    <input
-      type="file"
-      @change="onFileChange"
-      accept="image/*,video/*"
-      class="block w-full"
-    />
-
-    <div v-if="previewUrl" class="mt-2">
-      <img v-if="file?.type?.startsWith('image/')" :src="previewUrl" alt="preview" class="max-h-48 rounded" />
-      <video v-else-if="file?.type?.startsWith('video/')" :src="previewUrl" controls class="max-h-48 rounded" />
-    </div>
-
-    <button
-      :disabled="!file || uploading"
-      @click="upload"
-      class="px-4 py-2 rounded bg-black text-white disabled:opacity-50"
-    >
-      {{ uploading ? 'Upload en cours…' : 'Charger le fichier' }}
-    </button>
-
-    <div v-if="uploading" class="w-full bg-gray-200 rounded h-2">
-      <div class="h-2 bg-blue-500 rounded" :style="{ width: progress + '%' }"></div>
-    </div>
-
-    <p v-if="errorMsg" class="text-red-600 text-sm">{{ errorMsg }}</p>
-  </div>
-</template>
