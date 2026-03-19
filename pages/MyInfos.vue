@@ -8,7 +8,8 @@
       </p>
     </div>
 
-    <form @submit.prevent="handleSubmit" class="space-y-12 bg-white border border-slate-200 rounded-3xl shadow-sm p-6 md:p-10">
+    <form @submit.prevent="handleSubmit"
+      class="space-y-12 bg-white border border-slate-200 rounded-3xl shadow-sm p-6 md:p-10">
 
       <!-- SECTION : Informations personnelles -->
       <section>
@@ -33,9 +34,18 @@
           <FormSelect label="Main Forte" v-model="form.hand" :options="hand" required />
           <FormInput label="Équipe actuelle" v-model="form.team" />
           <FormSelect label="Niveau" v-model="form.level" :options="levels" required />
-          <FormInput label="Disponibilité" v-model="form.disponibility" placeholder="Ex : Immédiate, Fin de saison..." />
+          <FormInput label="Disponibilité" v-model="form.disponibility"
+            placeholder="Ex : Immédiate, Fin de saison..." />
         </div>
       </section>
+
+         <!-- SECTION RESEAU SOCIAUX -->
+         <section>
+          <h2 class="text-xl font-semibold text-slate-900 mb-4">Réseaux Sociaux</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <FormInput label="Poste" v-model="form.socialMedia" placeholder="@IamTheOne" />
+          </div>
+        </section>
 
       <!-- SECTION : Médias -->
       <section>
@@ -50,6 +60,7 @@
           </div>
         </div>
 
+     
         <!-- VIDEO -->
         <div>
           <h3 class="font-medium mb-2">Vidéo Highlight</h3>
@@ -63,21 +74,16 @@
       <!-- SECTION : Description -->
       <section>
         <h2 class="text-xl font-semibold text-slate-900 mb-2">Description</h2>
-        <textarea
-          v-model="form.description"
-          rows="5"
+        <textarea v-model="form.description" rows="5"
           class="w-full rounded-2xl border border-slate-300 focus:ring-2 focus:ring-blue-600 p-3"
-          placeholder="Décris ton style de jeu, ton profil, tes objectifs..."
-        ></textarea>
+          placeholder="Décris ton style de jeu, ton profil, tes objectifs..."></textarea>
       </section>
 
       <!-- BOUTON -->
       <div class="pt-6 text-center">
-        <button
-          type="submit"
+        <button type="submit"
           class="rounded-full bg-blue-600 px-8 py-3 text-white font-semibold shadow-sm hover:bg-blue-700 transition disabled:opacity-40"
-          :disabled="loading"
-        >
+          :disabled="loading">
           {{ loading ? 'Envoi...' : 'Enregistrer le profil' }}
         </button>
 
@@ -105,11 +111,11 @@ interface PlayerForm {
   lastName: string
   birth: string
   nationality: string
-  height: number | null
-  weight: number | null
+  height: number | undefined
+  weight: number | undefined
   role: string
   hand: string
-  socialMedia: string | null
+  socialMedia: string
   team: string
   level: string
   disponibility: string
@@ -123,11 +129,11 @@ const form = ref<PlayerForm>({
   lastName: "",
   birth: "",
   nationality: "",
-  height: null,
-  weight: null,
+  height: undefined,
+  weight: undefined,
   role: "",
   hand: "",
-  socialMedia: null,
+  socialMedia: "",
   team: "",
   level: "",
   disponibility: "",
@@ -204,7 +210,7 @@ const handleSubmit = async () => {
 </script>
 
 <style>
-  .media-size {
-    width: 20rem;
-  }
+.media-size {
+  width: 20rem;
+}
 </style>

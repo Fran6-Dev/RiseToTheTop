@@ -117,6 +117,9 @@ export interface User {
   birth?: string
   nationality?: string
   height?: number
+  weight?: number
+  hand?: string
+  socialMedia?: string
   role?: string
   team?: string
   level?: string

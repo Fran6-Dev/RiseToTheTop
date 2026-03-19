@@ -25,6 +25,9 @@ export default defineEventHandler(async(event) => {
         birth: body.birth,
         nationality: body.nationality,
         height: body.height,
+        weight: body.weight,
+        hand: body.hand,
+        socialMedia: body.socialMedia,
         role: body.role,
         team: body.team,
         level: body.level,
@@ -33,6 +36,7 @@ export default defineEventHandler(async(event) => {
         photo: body.photo,
         video: body.video,
         description: body.description,
+        visible: true,
       },
     },
     { new: true }

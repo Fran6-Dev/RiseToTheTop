@@ -13,10 +13,6 @@
               <span v-if="username" class="">
                 {{ username }}
               </span>
-              <!-- <span v-else class="">
-                joueur
-              </span> -->
-              👋
             </h1>
             <p v-if="username" class="mt-1 text-sm">
               Gère ton profil et découvre les autres joueurs de la plateforme.
@@ -56,9 +52,9 @@
       </section>
 
       <!-- Intro (ton composant existant) -->
-      <section v-if="!username" class="mb-10">
+      <!-- <section v-if="!username" class="mb-10"> -->
         <Intro />
-      </section>
+      <!-- </section> -->
 
       <!-- Section joueurs -->
       <section>

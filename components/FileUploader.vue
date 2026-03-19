@@ -124,8 +124,5 @@ async function upload() {
   
 }
 
-async function chargePage() {
-  navigateTo('/MyInfos', { replace: true })
-}
 </script>
 

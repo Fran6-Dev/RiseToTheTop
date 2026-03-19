@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full py-10">
+  <section class="w-full mb-10">
     <div class="max-w-4xl mx-auto px-4">
       <div
         class="rounded-3xl bg-white shadow-sm border border-slate-200 px-6 py-8 md:px-10 md:py-10 text-center"
@@ -14,7 +14,7 @@
         </h2>
 
         <p class="text-sm md:text-base text-slate-600 mb-2">
-          Inscris-toi, crée ton profil, partage tes vidéos et fais-toi connaître aux yeux de tous.
+          Crée ton profil, partage tes vidéos et fais-toi connaître aux yeux de tous.
         </p>
         <p class="text-sm md:text-base text-slate-600 mb-1">
           RiseToTheTop, l'application qui t'aide à atteindre le sommet.
@@ -28,7 +28,7 @@
             to="/MyInfos"
             class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition"
           >
-            Créer mon profil joueur
+            Créer / Modifier mon profil joueur
           </NuxtLink>
 
           <NuxtLink

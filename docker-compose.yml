@@ -1,0 +1,51 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    environment:
+      # MONGO_INITDB_ROOT_USERNAME: root
+      # MONGO_INITDB_ROOT_PASSWORD: rootpass
+      # MONGO_INITDB_DATABASE: appdb
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "27017:27017"
+
+  nuxt:
+    build: .
+    restart: unless-stopped
+    environment:
+      # MongoDB
+      MONGODB_URI: "mongodb://appuser:apppass@mongo:27017/RiseToTheTop?authSource=appdb"
+      NUXT_MONGODB_URI: "mongodb://appuser:apppass@mongo:27017/RiseToTheTop?authSource=appdb"
+      NUXT_MONGO_URI: "mongodb://appuser:apppass@mongo:27017/RiseToTheTop?authSource=appdb"
+
+      
+      # Auth
+      AUTH_SECRET: "change-moi-avec-une-longue-chaine-aleatoire-tres-longue-32-chars-minimum"
+      NUXT_AUTH_SECRET: "change-moi-avec-une-longue-chaine-aleatoire-tres-longue-32-chars-minimum"
+      AUTH_ORIGIN: "http://127.0.0.1:3000"
+      NUXT_AUTH_ORIGIN: "http://127.0.0.1:3000"
+      
+      # Cloudflare
+      CF_ACCOUNT_ID: "e60681a8485be2610ee53ac235fdbc64"
+      CF_IMAGES_TOKEN: "x9BwAAdl0UFRaEeDuUpJTE6B4DnO6XYJBYpMDvN-"
+      CF_STREAM_TOKEN: "U-3qYuNb14RQ6Av1lTCAK9NJ3RJGrOXF4oLQoyeF"
+      
+      # R2
+      R2_ACCESS_KEY_ID: "41dcf9f10043cb13f447a2cf772280fe"
+      R2_SECRET_ACCESS_KEY: "57db7c189376c467352cf0cbfc93ad59886f29877fa7538eff12e66703413b81"
+      R2_BUCKET: "risetothetop"
+      R2_PUBLIC_BASE: "https://pub-aa0e4ee5d9f04aca8ce8d04a868dd903.r2.dev"
+      
+      # Serveur
+      NUXT_HOST: "0.0.0.0"
+      NUXT_PORT: "3000"
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+
+volumes:
+  mongo_data:
