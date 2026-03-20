@@ -1,15 +1,15 @@
 // middleware/admin.ts
-export default defineNuxtRouteMiddleware(() => {
+export default defineNuxtRouteMiddleware((to) => {
   const { status, data } = useAuth()
 
+  // 1. Pas connecté -> Login
   if (status.value !== 'authenticated') {
-    return navigateTo('/Login')
+    return navigateTo('/login')
   }
 
-  const accountRole = data.value?.user?.accountRole
-  // console.log(accountRole);
-
-  if (accountRole !== 'admin') {
-    return navigateTo('/') // ou une page 403
+  // 2. Pas admin -> Accueil (mais seulement si on n'y est pas déjà !)
+  const accountRole = (data.value?.user as any)?.accountRole
+  if (accountRole !== 'admin' && to.path !== '/') {
+    return navigateTo('/')
   }
 })

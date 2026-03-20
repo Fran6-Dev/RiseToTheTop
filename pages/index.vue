@@ -78,9 +78,9 @@
 </template>
 
 <script lang="ts" setup>
-// definePageMeta({
-//   middleware: 'guest'
-// })
+definePageMeta({
+  middleware: 'guest'
+})
 
 const { data: session, status } = useAuth()
 

@@ -112,6 +112,14 @@
             </NuxtLink>
           </p>
         </form>
+        
+        <div class="flex justify-center">
+          <button class="text-sm text-slate-500 text-center mt-3">
+            <NuxtLink to="/" class="font-medium text-blue-600 hover:text-blue-700">
+              Accéder aux profils des joueurs
+            </NuxtLink>
+          </button>  
+        </div>
       </div>
     </div>
   </div>
